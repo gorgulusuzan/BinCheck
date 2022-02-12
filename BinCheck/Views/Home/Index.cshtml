@@ -1,0 +1,55 @@
+﻿@model CreditCardQueryViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form method="post">
+    <div class="p-5 mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="kart numaranızın son 6 rakamını yazınız..." asp-for="CardNumber">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Gönder</button>
+            </div>
+        </div>
+        <span asp-validation-for="CardNumber"></span>
+
+    </div>
+</form>
+@{
+    var cardInfo = ViewBag.CardInfo as ResultViewModel;
+
+}
+
+@if (cardInfo is not null)
+{
+    <div class="row p-5">
+        <div class="col-12 col-md-4">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Banka Adı</th>
+                        <td>@cardInfo.bank.name</td>
+                    </tr>
+                    <tr>
+                        <th>Kart Tipi</th>
+                        <td>@cardInfo.type</td>
+                    </tr>
+                    <tr>
+                        <th>Marka</th>
+                        <td>@cardInfo.scheme</td>
+                    </tr>
+                    <tr>
+                        <th>Ülke</th>
+                        <td>@cardInfo.country.emoji - @cardInfo.country.name </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+
+@section scripts {
+<partial name="_ValidationScriptsPartial" />
+}
